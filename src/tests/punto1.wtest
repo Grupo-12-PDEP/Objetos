@@ -1,0 +1,42 @@
+import rolando.*
+
+
+describe "tests del punto 1: Hechiceria" {
+	
+	fixture{	
+		rolando.hechizoPreferido(espectroMalefico)
+	}
+	
+	test "el nivel de hechiceria de rolando es 56" {
+		assert.equals( rolando.nivelDeHechiceria(), 56 )
+	}
+	
+	
+	test "despues de cambiar el nombre del hechizo, el nivel de hechiceria de rolando es de 125" {
+		espectroMalefico.nombre("espectro superrecontramalefico muajajaja")
+		assert.equals( rolando.nivelDeHechiceria(), 125 )
+	}
+	
+	test "luego de cambiar el hechizo preferido, el nivel de rolando es 35" {
+		rolando.hechizoPreferido(hechizoBasico)
+		assert.equals( rolando.nivelDeHechiceria(), 35 )
+	}
+	
+	test "luego de un eclipse, el nivel de rolando es de 61" {
+		fuerzaOscura.eclipse()
+		assert.equals( rolando.nivelDeHechiceria(), 61 )
+	}
+	
+	test "el espectro malefico es poderoso" {
+		assert.that(espectroMalefico.sosPoderoso())
+	}
+	
+	test "despues de cambiar el nombre del espectro malefico a pepe, el hechizo no es poderoso" {
+		espectroMalefico.nombre("pepe")
+		assert.notThat(espectroMalefico.sosPoderoso())
+	}
+	
+	test "el hechizo basico no es poderoso" {
+		assert.notThat(hechizoBasico.sosPoderoso())
+	}
+}

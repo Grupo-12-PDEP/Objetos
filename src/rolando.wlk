@@ -18,7 +18,7 @@ object rolando {
 
 object espectroMalefico{
 	
-	var nombre = "Espectro maléfico"
+	var nombre = "Espectro malefico"
 	
 	method nombre() = nombre
 	method nombre(nuevoNombre) {
