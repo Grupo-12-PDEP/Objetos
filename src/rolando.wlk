@@ -1,17 +1,39 @@
 object rolando {
 	
 	var hechizoPreferido = hechizoBasico
-	
+	var valorBaseDeLucha = 1
+	var artefactos = []
 	
 	method hechizoPreferido() = hechizoPreferido
 	method hechizoPreferido(nuevoHehizoPreferido) {
 		hechizoPreferido = nuevoHehizoPreferido
 	}
 	
-	method nivelDeHechiceria() = (3 * hechizoPreferido.poder()) + fuerzaOscura.valor()
+	method valorBaseDeLucha() = valorBaseDeLucha
+	method valorBaseDeLucha(nuevoValor) {
+		valorBaseDeLucha = nuevoValor
+	}
 	
-	method seCreePoderoso() = hechizoPreferido.sosPoderoso()
+	method artefactos() = artefactos
+	method artefactos(nuevaLista) {
+		artefactos = nuevaLista
+	}
 	
+	method agregarArtefacto(nuevoArtefacto){
+		self.artefactos(self.artefactos() + [nuevoArtefacto])
+	}
+	
+	method removerArtefacto(viejoArtefacto){
+		self.artefactos(self.artefactos() - [viejoArtefacto])
+	}
+	
+	method nivelDeHechiceria() = (3 * self.hechizoPreferido().poder()) + fuerzaOscura.valor()
+	
+	method seCreePoderoso() = self.hechizoPreferido().sosPoderoso()
+	
+	method habilidadDeLucha() = self.valorBaseDeLucha() + self.artefactos().sum({artefacto => artefacto.unidadesDeLucha()})
+	
+	method esMejorLuchadorQueHechicero() = self.habilidadDeLucha() > self.nivelDeHechiceria()
 	
 }
 
@@ -60,11 +82,27 @@ object fuerzaOscura {
 }
 
 
+object espadaDelDestino {
+	
+	method unidadesDeLucha() = 3
+	
+}
 
+object collarDivino{
+	var perlas = 0
+	
+	method perlas() = perlas
+	method perlas(cantidadDePerlas){
+		perlas = cantidadDePerlas
+	}
+	
+	method unidadesDeLucha() = self.perlas()
+}
 
-
-
-
+object mascaraOscura{
+	
+	method unidadesDeLucha() = 4.max(fuerzaOscura.valor() / 2)
+}
 
 
 

@@ -1,0 +1,40 @@
+import rolando.*
+
+
+describe "tests del punto 2: Lucha" {
+	
+	fixture{
+		rolando.artefactos([espadaDelDestino, collarDivino, mascaraOscura])
+		collarDivino.perlas(5)
+	}
+
+	test "la habilidad de lucha sin artefactos es de 1" {
+		rolando.artefactos([])
+		assert.equals(rolando.habilidadDeLucha(), 1)
+	}
+	
+	test "la habilidad con todos los artefactos es de 13" {
+		assert.equals(rolando.habilidadDeLucha(), 13)
+	}
+	
+	test "la habilidad con 3 perlas es de 11" {
+		collarDivino.perlas(3)
+		assert.equals(rolando.habilidadDeLucha(), 11)
+	}
+	
+	test "con valor base de lucha = 8, la habilidad es de 20" {
+		rolando.valorBaseDeLucha(8)
+		assert.equals(rolando.habilidadDeLucha(), 20)
+	}
+	
+	test "despues de un eclipse, el valor de lucha de la mascara es de 5" {
+		fuerzaOscura.eclipse()
+		assert.equals(mascaraOscura.unidadesDeLucha(), 5)
+	}
+	
+	test "sin la mascara oscura, la habilidad de rolando es de 9" {
+		rolando.removerArtefacto(mascaraOscura)
+		assert.equals(rolando.habilidadDeLucha(), 9)
+	}
+
+}
