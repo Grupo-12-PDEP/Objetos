@@ -20,11 +20,11 @@ object rolando {
 	}
 	
 	method agregarArtefacto(nuevoArtefacto){
-		self.artefactos(self.artefactos() + [nuevoArtefacto])
+		self.artefactos().add(nuevoArtefacto)
 	}
 	
 	method removerArtefacto(viejoArtefacto){
-		self.artefactos(self.artefactos() - [viejoArtefacto])
+		self.artefactos().remove(viejoArtefacto)
 	}
 	
 	method nivelDeHechiceria() = (3 * self.hechizoPreferido().poder()) + fuerzaOscura.valor()
