@@ -1,0 +1,57 @@
+import rolando.*
+
+describe "tests del punto 3: Lucha y hechiceria avanzada" {
+	
+	fixture {
+		rolando.agregaArtefacto(espadaDelDestino)
+		rolando.agregaArtefacto(collarDivino)
+		rolando.agregaArtefacto(mascaraOscura)
+		rolando.agregaArtefacto(espejo)
+		rolando.armadura(bendicion)
+	}
+
+	test "si rolando esta cargado, tiene 5 artefactos o mas" {
+		assert.that(rolando.estasCargado())
+	}
+	
+	test "si le sacamos la armadura, no esta cargado" {
+		rolando.removeArtefacto(bendicion)
+		assert.notThat(rolando.estasCargado())		
+	}
+	
+	test "si rolando tiene los artefactos de arriba, su habilidad de lucha es de 78" {
+		assert.equals(rolando.habilidadDeLucha(), 78)
+	}
+	
+	test "si rolando tiene la bendicion como armadura, su refuerzo es de 37" {
+		assert.equals(rolando.refuerzo(), 37)
+	}
+	
+	test "si rolando tiene la cota de malla de armadura, su refuerzo es de 3" {
+		rolando.armadura(cotaDeMalla)
+		assert.equals(rolando.refuerzo(), 3)
+	}
+	
+	test "si rolando tiene el hechizo basico de armadura, su refuerzo es de 37" {
+		rolando.armadura(hechizoBasico)
+		assert.equals(rolando.refuerzo(), 37)
+	}
+	
+	test "si rolando tiene el espectro malefico de armadura, su refuerzo es de 37" {
+		rolando.armadura(espectroMalefico)
+		assert.equals(rolando.refuerzo(), 37)
+	}
+	
+	test "si rolando tiene solo un espejo en su inventario, tiene un valor de lucha de 1" {
+		rolando.artefactos().clear()
+		rolando.agregaArtefacto(espejo)
+		assert.equals(rolando.habilidadDeLucha(), 1)
+	}
+	
+	test "si rolando tiene un libro de hechizos con un espectro malefico y un hechizo basico, su nivel de hechiceria es de 86" {
+		rolando.hechizoPreferido(libroDeHechizos)
+		libroDeHechizos.agregaHechizo(espectroMalefico)
+		libroDeHechizos.agregaHechizo(hechizoBasico)
+		assert.equals(rolando.nivelDeHechiceria(), 86)
+	}
+}

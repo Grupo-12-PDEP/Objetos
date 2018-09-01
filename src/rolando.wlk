@@ -1,8 +1,17 @@
 object rolando {
 	
+	var armadura
 	var hechizoPreferido = hechizoBasico
 	var valorBaseDeLucha = 1
-	var artefactos = []
+	var valorBaseDeRefuerzo = 2
+	const artefactos = []
+	
+	method armadura() = armadura
+	method armadura(nuevaArmadura) {
+		self.artefactos().remove(armadura)
+		armadura = nuevaArmadura
+		self.artefactos().add(nuevaArmadura)
+	}
 	
 	method hechizoPreferido() = hechizoPreferido
 	method hechizoPreferido(nuevoHehizoPreferido) {
@@ -14,42 +23,55 @@ object rolando {
 		valorBaseDeLucha = nuevoValor
 	}
 	
-	method artefactos() = artefactos
-	method artefactos(nuevaLista) {
-		artefactos = nuevaLista
+	method valorBaseDeRefuerzo() = valorBaseDeRefuerzo
+	method valorBaseDeRefuerzo(nuevoValor) {
+		valorBaseDeRefuerzo = nuevoValor
 	}
 	
-	method agregarArtefacto(nuevoArtefacto){
+	method artefactos() = artefactos
+	method artefactos(nuevaLista) {
+		self.artefactos().clear()
+		self.artefactos().addAll(nuevaLista)
+	}
+	
+	method agregaArtefacto(nuevoArtefacto){
 		self.artefactos().add(nuevoArtefacto)
 	}
 	
-	method removerArtefacto(viejoArtefacto){
+	method removeArtefacto(viejoArtefacto){
 		self.artefactos().remove(viejoArtefacto)
 	}
 	
 	method nivelDeHechiceria() = (3 * self.hechizoPreferido().poder()) + fuerzaOscura.valor()
 	
-	method seCreePoderoso() = self.hechizoPreferido().sosPoderoso()
+	method teCreesPoderoso() = self.hechizoPreferido().sosPoderoso()
 	
-	method habilidadDeLucha() = self.valorBaseDeLucha() + self.artefactos().sum({artefacto => artefacto.unidadesDeLucha()})
+	method habilidadDeLucha() = self.valorBaseDeLucha() + self.artefactos().sum({artefacto => artefacto.unidadesDeLucha(self.nivelDeHechiceria(), self.artefactos())})
 	
-	method esMejorLuchadorQueHechicero() = self.habilidadDeLucha() > self.nivelDeHechiceria()
+	method sosMejorLuchadorQueHechicero() = self.habilidadDeLucha() > self.nivelDeHechiceria()
 	
+	method refuerzo() = self.valorBaseDeRefuerzo() + self.armadura().unidadesDeLucha(self.nivelDeHechiceria(), self.artefactos())
+	
+	method estasCargado() = self.artefactos().size() >= 5
+
 }
 
 
 object espectroMalefico{
 	
-	var nombre = "Espectro malefico"
+	const nombre = "Espectro malefico"
 	
 	method nombre() = nombre
 	method nombre(nuevoNombre) {
-		nombre = nuevoNombre
+		self.nombre().clear()
+		self.nombre().addAll(nuevoNombre)
 	}
 
 	method poder() = self.nombre().size()
 	
-	method sosPoderoso() = self.nombre().size() > 15
+	method sosPoderoso() = self.poder() > 15
+	
+	method unidadesDeLucha(nivelDeHechiceria, artefactos) = nivelDeHechiceria
 
 }
 
@@ -65,6 +87,8 @@ object hechizoBasico{
 	
 	method sosPoderoso() = false
 	
+	method unidadesDeLucha(nivelDeHechiceria, artefactos) = nivelDeHechiceria
+	
 }
 
 
@@ -73,7 +97,9 @@ object fuerzaOscura {
 	var valor = 5
 	
 	method valor() = valor
-	method valor(nuevoValor) { valor = nuevoValor }
+	method valor(nuevoValor) { 
+		valor = nuevoValor
+	}
 	
 	method eclipse() {
 		self.valor( self.valor() * 2 )
@@ -84,7 +110,7 @@ object fuerzaOscura {
 
 object espadaDelDestino {
 	
-	method unidadesDeLucha() = 3
+	method unidadesDeLucha(nivelDeHechiceria, artefactos) = 3
 	
 }
 
@@ -96,17 +122,49 @@ object collarDivino{
 		perlas = cantidadDePerlas
 	}
 	
-	method unidadesDeLucha() = self.perlas()
+	method unidadesDeLucha(nivelDeHechiceria, artefactos) = self.perlas()
+	
 }
 
 object mascaraOscura{
 	
-	method unidadesDeLucha() = 4.max(fuerzaOscura.valor() / 2)
+	method unidadesDeLucha(nivelDeHechiceria, artefactos) = 4.max(fuerzaOscura.valor() / 2)
+	
 }
 
+object cotaDeMalla {
+	
+	method unidadesDeLucha(nivelDeHechiceria, artefactos) = 1
+	
+}
 
+object bendicion {
+	
+	method unidadesDeLucha(nivelDeHechiceria, artefactos) = nivelDeHechiceria
+	
+}
 
+object espejo {
+	
+	method unidadesDeLucha(nivelDeHechiceria, artefactos) {
+		artefactos.remove(self)
+		return artefactos.max({artefacto => artefacto.unidadesDeLucha(nivelDeHechiceria, artefactos)}).unidadesDeLucha(nivelDeHechiceria, artefactos)
+		artefactos.add(self)
+	}
 
+}
 
+object libroDeHechizos {
+	
+	const hechizos = []
+	
+	method hechizos() = hechizos
+	method agregaHechizo(hechizo) {
+		self.hechizos().add(hechizo)
+	}
+	
+	method poder() = self.hechizos().sum({hechizo => hechizo.poder()})
+
+}
 
 //fin
