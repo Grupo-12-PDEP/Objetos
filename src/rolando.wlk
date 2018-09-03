@@ -59,12 +59,11 @@ object rolando {
 
 object espectroMalefico{
 	
-	const nombre = "Espectro malefico"
+	var nombre = "Espectro malefico"
 	
 	method nombre() = nombre
 	method nombre(nuevoNombre) {
-		self.nombre().clear()
-		self.nombre().addAll(nuevoNombre)
+		nombre = nuevoNombre
 	}
 
 	method poder() = self.nombre().size()
@@ -145,12 +144,8 @@ object bendicion {
 }
 
 object espejo {
-	
-	method unidadesDeLucha(nivelDeHechiceria, artefactos) {
-		artefactos.remove(self)
-		return artefactos.max({artefacto => artefacto.unidadesDeLucha(nivelDeHechiceria, artefactos)}).unidadesDeLucha(nivelDeHechiceria, artefactos)
-		artefactos.add(self)
-	}
+
+	method unidadesDeLucha(nivelDeHechiceria, artefactos) = if (artefactos.size() == 1) {return 0} else {return artefactos.max({artefacto => if (artefacto != self) {return artefacto.unidadesDeLucha(nivelDeHechiceria, artefactos)} else {return 0}}).unidadesDeLucha(nivelDeHechiceria, artefactos)}
 
 }
 
