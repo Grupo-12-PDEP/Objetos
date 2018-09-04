@@ -3,13 +3,20 @@ import rolando.*
 
 describe "tests del punto 2: Lucha" {
 	
+	const espadaDelDestino
+	const collarDivino
+	const mascaraOscura
+	
 	fixture{
+		espadaDelDestino = new EspadaDelDestino()
+		collarDivino = new CollarDivino()
+		mascaraOscura = new MascaraOscura()
 		rolando.artefactos([espadaDelDestino, collarDivino, mascaraOscura])
 		collarDivino.perlas(5)
 	}
 
 	test "la habilidad de lucha sin artefactos es de 1" {
-		rolando.artefactos([])
+		rolando.artefactos().clear()
 		assert.equals(rolando.habilidadDeLucha(), 1)
 	}
 	

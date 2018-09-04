@@ -3,7 +3,10 @@ import rolando.*
 
 describe "tests del punto 1: Hechiceria" {
 	
-	fixture{	
+	const espectroMalefico
+	
+	fixture {
+		espectroMalefico = new EspectroMalefico() 
 		rolando.hechizoPreferido(espectroMalefico)
 	}
 	
@@ -18,7 +21,7 @@ describe "tests del punto 1: Hechiceria" {
 	}
 	
 	test "luego de cambiar el hechizo preferido, el nivel de rolando es 35" {
-		rolando.hechizoPreferido(hechizoBasico)
+		rolando.hechizoPreferido(new HechizoBasico())
 		assert.equals( rolando.nivelDeHechiceria(), 35 )
 	}
 	
@@ -37,6 +40,6 @@ describe "tests del punto 1: Hechiceria" {
 	}
 	
 	test "el hechizo basico no es poderoso" {
-		assert.notThat(hechizoBasico.sosPoderoso())
+		assert.notThat(new HechizoBasico().sosPoderoso())
 	}
 }

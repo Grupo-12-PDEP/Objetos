@@ -2,7 +2,18 @@ import rolando.*
 
 describe "tests del punto 3: Lucha y hechiceria avanzada" {
 	
+	const espadaDelDestino
+	const collarDivino
+	const mascaraOscura
+	const espejo
+	const bendicion
+	
 	fixture {
+		espadaDelDestino = new EspadaDelDestino()
+		collarDivino = new CollarDivino()
+		mascaraOscura = new MascaraOscura()
+		espejo = new Espejo()
+		bendicion = new Bendicion()
 		rolando.agregaArtefacto(espadaDelDestino)
 		rolando.agregaArtefacto(collarDivino)
 		rolando.agregaArtefacto(mascaraOscura)
@@ -28,11 +39,13 @@ describe "tests del punto 3: Lucha y hechiceria avanzada" {
 	}
 	
 	test "si rolando tiene la cota de malla de armadura, su refuerzo es de 3" {
+		const cotaDeMalla = new CotaDeMalla()
 		rolando.armadura(cotaDeMalla)
 		assert.equals(rolando.refuerzo(), 3)
 	}
 	
 	test "si rolando tiene el hechizo basico de armadura, su refuerzo es de 37" {
+		
 		rolando.armadura(hechizoBasico)
 		assert.equals(rolando.refuerzo(), 37)
 	}

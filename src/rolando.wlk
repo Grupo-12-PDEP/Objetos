@@ -1,7 +1,7 @@
 object rolando {
 	
 	var armadura
-	var hechizoPreferido = hechizoBasico
+	var hechizoPreferido = new HechizoBasico()
 	var valorBaseDeLucha = 1
 	var valorBaseDeRefuerzo = 2
 	const artefactos = []
@@ -39,6 +39,9 @@ object rolando {
 	}
 	
 	method removeArtefacto(viejoArtefacto){
+		if (viejoArtefacto == armadura) {
+			armadura = null
+		}
 		self.artefactos().remove(viejoArtefacto)
 	}
 	
@@ -57,7 +60,7 @@ object rolando {
 }
 
 
-object espectroMalefico{
+class EspectroMalefico{
 	
 	var nombre = "Espectro malefico"
 	
@@ -75,7 +78,7 @@ object espectroMalefico{
 }
 
 
-object hechizoBasico{
+class HechizoBasico{
 	
 	var poder = 10
 	
@@ -107,13 +110,13 @@ object fuerzaOscura {
 }
 
 
-object espadaDelDestino {
+class EspadaDelDestino {
 	
 	method unidadesDeLucha(nivelDeHechiceria, artefactos) = 3
 	
 }
 
-object collarDivino{
+class CollarDivino{
 	var perlas = 0
 	
 	method perlas() = perlas
@@ -125,31 +128,33 @@ object collarDivino{
 	
 }
 
-object mascaraOscura{
+class MascaraOscura{
 	
 	method unidadesDeLucha(nivelDeHechiceria, artefactos) = 4.max(fuerzaOscura.valor() / 2)
 	
 }
 
-object cotaDeMalla {
+class CotaDeMalla {
 	
 	method unidadesDeLucha(nivelDeHechiceria, artefactos) = 1
 	
 }
 
-object bendicion {
+class Bendicion {
 	
 	method unidadesDeLucha(nivelDeHechiceria, artefactos) = nivelDeHechiceria
 	
 }
 
-object espejo {
+class Espejo {
 
-	method unidadesDeLucha(nivelDeHechiceria, artefactos) = if (artefactos.size() == 1) {return 0} else {return artefactos.max({artefacto => if (artefacto != self) {return artefacto.unidadesDeLucha(nivelDeHechiceria, artefactos)} else {return 0}}).unidadesDeLucha(nivelDeHechiceria, artefactos)}
+	method unidadesDeLucha(nivelDeHechiceria, artefactos) = if (self.filtrateDeLosArtefactos(artefactos).isEmpty()) {return 0} else {return self.filtrateDeLosArtefactos(artefactos).max({artefacto => artefacto.unidadesDeLucha(nivelDeHechiceria, artefactos)}).unidadesDeLucha(nivelDeHechiceria, artefactos)}
+
+	method filtrateDeLosArtefactos(artefactos) = artefactos.filter({artefacto => artefacto != self})
 
 }
 
-object libroDeHechizos {
+class LibroDeHechizos {
 	
 	const hechizos = []
 	
