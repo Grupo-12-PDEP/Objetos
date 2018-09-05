@@ -1,45 +1,44 @@
 import rolando.*
 
+describe "Tests del punto 1: Hechicería" {
 
-describe "tests del punto 1: Hechiceria" {
-	
 	const espectroMalefico
-	
+
 	fixture {
 		espectroMalefico = new EspectroMalefico() 
 		rolando.hechizoPreferido(espectroMalefico)
 	}
-	
-	test "el nivel de hechiceria de rolando es 56" {
+
+	test "El nivel de hechicería de rolando es 56" {
 		assert.equals( rolando.nivelDeHechiceria(), 56 )
-	}
-	
-	
-	test "despues de cambiar el nombre del hechizo, el nivel de hechiceria de rolando es de 125" {
+	}	
+
+	test "Despues de cambiar el nombre del hechizo, el nivel de hechiceria de rolando es de 125" {
 		espectroMalefico.nombre("espectro superrecontramalefico muajajaja")
 		assert.equals( rolando.nivelDeHechiceria(), 125 )
 	}
-	
-	test "luego de cambiar el hechizo preferido, el nivel de rolando es 35" {
+
+	test "Luego de cambiar el hechizo preferido, el nivel de rolando es 35" {
 		rolando.hechizoPreferido(new HechizoBasico())
 		assert.equals( rolando.nivelDeHechiceria(), 35 )
 	}
-	
-	test "luego de un eclipse, el nivel de rolando es de 61" {
+
+	test "Luego de un eclipse, el nivel de rolando es de 61" {
 		fuerzaOscura.eclipse()
-		assert.equals( rolando.nivelDeHechiceria(), 61 )
+		assert.equals(rolando.nivelDeHechiceria(), 61)
 	}
-	
-	test "el espectro malefico es poderoso" {
+
+	test "El espectro maléfico es poderoso" {
 		assert.that(espectroMalefico.sosPoderoso())
 	}
-	
-	test "despues de cambiar el nombre del espectro malefico a pepe, el hechizo no es poderoso" {
+
+	test "Despues de cambiar el nombre del espectro maléfico a pepe, el hechizo no es poderoso" {
 		espectroMalefico.nombre("pepe")
 		assert.notThat(espectroMalefico.sosPoderoso())
 	}
-	
-	test "el hechizo basico no es poderoso" {
+
+	test "El hechizo básico no es poderoso" {
 		assert.notThat(new HechizoBasico().sosPoderoso())
 	}
+
 }

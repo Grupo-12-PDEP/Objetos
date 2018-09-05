@@ -1,12 +1,11 @@
 import rolando.*
 
+describe "Tests del punto 2: Lucha" {
 
-describe "tests del punto 2: Lucha" {
-	
 	const espadaDelDestino
 	const collarDivino
 	const mascaraOscura
-	
+
 	fixture{
 		espadaDelDestino = new EspadaDelDestino()
 		collarDivino = new CollarDivino()
@@ -15,31 +14,31 @@ describe "tests del punto 2: Lucha" {
 		collarDivino.perlas(5)
 	}
 
-	test "la habilidad de lucha sin artefactos es de 1" {
+	test "La habilidad de lucha sin artefactos es de 1" {
 		rolando.artefactos().clear()
 		assert.equals(rolando.habilidadDeLucha(), 1)
 	}
-	
-	test "la habilidad con todos los artefactos es de 13" {
+
+	test "La habilidad con todos los artefactos es de 13" {
 		assert.equals(rolando.habilidadDeLucha(), 13)
 	}
-	
-	test "la habilidad con 3 perlas es de 11" {
+
+	test "La habilidad con 3 perlas es de 11" {
 		collarDivino.perlas(3)
 		assert.equals(rolando.habilidadDeLucha(), 11)
 	}
-	
-	test "con valor base de lucha = 8, la habilidad es de 20" {
+
+	test "Con valor base de lucha = 8, la habilidad es de 20" {
 		rolando.valorBaseDeLucha(8)
 		assert.equals(rolando.habilidadDeLucha(), 20)
 	}
-	
-	test "despues de un eclipse, el valor de lucha de la mascara es de 5" {
+
+	test "Despues de un eclipse, el valor de lucha de la máscara es de 5" {
 		fuerzaOscura.eclipse()
 		assert.equals(mascaraOscura.unidadesDeLucha(rolando.nivelDeHechiceria(), rolando.artefactos()), 5)
 	}
-	
-	test "sin la mascara oscura, la habilidad de rolando es de 9" {
+
+	test "Sin la máscara oscura, la habilidad de rolando es de 9" {
 		rolando.removeArtefacto(mascaraOscura)
 		assert.equals(rolando.habilidadDeLucha(), 9)
 	}
