@@ -91,7 +91,6 @@ class MascaraOscura {
 class Armadura {
 	
 	var property refuerzo = null
-
 	var property valorBaseDeRefuerzo = 2
 
 	method unidadesDeLucha(nivelDeHechiceria, artefactos) = self.valorBaseDeRefuerzo() + if (refuerzo != null) {self.refuerzo().unidadesDeLucha(nivelDeHechiceria, artefactos)} else {0}
