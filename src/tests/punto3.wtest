@@ -34,22 +34,22 @@ describe "Tests del punto 3: Lucha y hechicería avanzada" {
 
 	test "Si la armadura tiene la bendición como refuerzo, sus unidades de lucha son de 58" {
 		armadura.refuerzo(new Bendicion())
-		assert.equals(armadura.unidadesDeLucha(rolando.nivelDeHechiceria(), rolando.artefactos()), 58)
+		assert.equals(armadura.unidadesDeLucha(rolando), 58)
 	}
 
 	test "Si la armadura tiene la cota de malla de refuerzo, sus unidades de lucha son de 3" {
 		armadura.refuerzo(new CotaDeMalla())
-		assert.equals(armadura.unidadesDeLucha(rolando.nivelDeHechiceria(), rolando.artefactos()), 3)
+		assert.equals(armadura.unidadesDeLucha(rolando), 3)
 	}
 
 	test "Si la armadura tiene el hechizo básico de refuerzo, sus unidades de lucha son de 12" {
 		armadura.refuerzo(new HechizoBasico())
-		assert.equals(armadura.unidadesDeLucha(rolando.nivelDeHechiceria(), rolando.artefactos()), 12)
+		assert.equals(armadura.unidadesDeLucha(rolando), 12)
 	}
 
 	test "Si la armadura tiene el espectro maléfico de refuerzo, sus unidades de lucha son de 19" {
 		armadura.refuerzo(new EspectroMalefico())
-		assert.equals(armadura.unidadesDeLucha(rolando.nivelDeHechiceria(), rolando.artefactos()), 19)
+		assert.equals(armadura.unidadesDeLucha(rolando), 19)
 	}
 
 	test "Si rolando tiene solo un espejo en su inventario, tiene un valor de lucha de 1" {

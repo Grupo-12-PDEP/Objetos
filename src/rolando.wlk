@@ -2,8 +2,9 @@ object rolando {
 
 	const property artefactos = []
 	var property hechizoPreferido = new HechizoBasico()
-	var property valorBaseDeHechiceria = 3
 	var property valorBaseDeLucha = 1
+	
+	method valorBaseDeHechiceria() = 3
 
 	method artefactos(nuevaLista) {
 		self.artefactos().clear()
@@ -22,12 +23,15 @@ object rolando {
 
 	method teCreesPoderoso() = self.hechizoPreferido().sosPoderoso()
 
-	method habilidadDeLucha() = self.valorBaseDeLucha() + self.artefactos().sum({artefacto => artefacto.unidadesDeLucha(self.nivelDeHechiceria(), self.artefactos())})
+	method habilidadDeLucha() = self.valorBaseDeLucha() + self.artefactos().sum({artefacto => artefacto.unidadesDeLucha(self)})
 
 	method sosMejorLuchadorQueHechicero() = self.habilidadDeLucha() > self.nivelDeHechiceria()
 
 	method estasCargado() = self.artefactos().size() >= 5
-
+	
+	method artefactosSin(artefactoExceptuado) = self.artefactos().filter({artefacto => artefacto != artefactoExceptuado})
+	
+	method cualEsTuMejorArtefactoExceptuando(artefactoExceptuado) = self.artefactosSin(artefactoExceptuado).find( { unArtefacto => self.artefactosSin(artefactoExceptuado).all({otroArtefacto => unArtefacto.unidadesDeLucha(self) >= otroArtefacto.unidadesDeLucha(self)}) } )
 }
 
 
@@ -39,7 +43,7 @@ class EspectroMalefico {
 
 	method sosPoderoso() = self.poder() > 15
 
-	method unidadesDeLucha(nivelDeHechiceria, artefactos) = self.poder()
+	method unidadesDeLucha(propietario) = self.poder()
 
 }
 
@@ -50,7 +54,7 @@ class HechizoBasico {
 
 	method sosPoderoso() = false
 
-	method unidadesDeLucha(nivelDeHechiceria, artefactos) = self.poder()
+	method unidadesDeLucha(propietario) = self.poder()
 
 }
 
@@ -66,11 +70,9 @@ object fuerzaOscura {
 }
 
 
-class EspadaDelDestino {
+class EspadaDelDestino {	
 
-	var property valorDeLuchaDeEspadaDelDestino = 3
-
-	method unidadesDeLucha(nivelDeHechiceria, artefactos) = self.valorDeLuchaDeEspadaDelDestino()
+	method unidadesDeLucha(propietario) = 3
 
 }
 
@@ -78,42 +80,45 @@ class CollarDivino {
 
 	var property perlas = 0
 
-	method unidadesDeLucha(nivelDeHechiceria, artefactos) = self.perlas()
+	method unidadesDeLucha(propietario) = self.perlas()
 
 }
 
 class MascaraOscura {
 
-	method unidadesDeLucha(nivelDeHechiceria, artefactos) = 4.max(fuerzaOscura.valor() / 2)
+	method unidadesDeLucha(propietario) = 4.max(fuerzaOscura.valor() / 2)
 
 }
 
 class Armadura {
 	
-	var property refuerzo = null
-	var property valorBaseDeRefuerzo = 2
+	var property refuerzo = ninguno
 
-	method unidadesDeLucha(nivelDeHechiceria, artefactos) = self.valorBaseDeRefuerzo() + if (refuerzo != null) {self.refuerzo().unidadesDeLucha(nivelDeHechiceria, artefactos)} else {0}
+	method unidadesDeLucha(propietario) = 2 + self.refuerzo().unidadesDeLucha(propietario)
 
 }
 
 class CotaDeMalla {
 
-	var property refuerzoDeCotaDeMalla = 1
-
-	method unidadesDeLucha(nivelDeHechiceria, artefactos) = self.refuerzoDeCotaDeMalla()
+	method unidadesDeLucha(propietario) = 1
 
 }
 
 class Bendicion {
 
-	method unidadesDeLucha(nivelDeHechiceria, artefactos) = nivelDeHechiceria
+	method unidadesDeLucha(propietario) = propietario.nivelDeHechiceria()
+
+}
+
+object ninguno {
+		
+	method unidadesDeLucha(propietario) = 0
 
 }
 
 class Espejo {
 
-	method unidadesDeLucha(nivelDeHechiceria, artefactos) = if (self.filtrateDeLosArtefactos(artefactos).isEmpty()) {return 0} else {return self.filtrateDeLosArtefactos(artefactos).map({artefacto => artefacto.unidadesDeLucha(nivelDeHechiceria, artefactos)}).max()}
+	method unidadesDeLucha(propietario) = if (self.filtrateDeLosArtefactos(propietario.artefactos()).isEmpty()) {return 0} else { propietario.cualEsTuMejorArtefactoExceptuando(self).unidadesDeLucha(propietario)	 }
 
 	method filtrateDeLosArtefactos(artefactos) = artefactos.filter({artefacto => artefacto != self})
 
@@ -124,7 +129,9 @@ class LibroDeHechizos {
 	const property hechizos = []
 
 	method agregaHechizo(hechizo) {
-		self.hechizos().add(hechizo)
+		if (hechizo != self){
+			self.hechizos().add(hechizo)
+		}
 	}
 
 	method poder() = self.hechizos().filter({hechizo => hechizo.sosPoderoso()}).sum({hechizo => hechizo.poder()})

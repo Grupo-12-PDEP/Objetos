@@ -35,7 +35,7 @@ describe "Tests del punto 2: Lucha" {
 
 	test "Despues de un eclipse, el valor de lucha de la máscara es de 5" {
 		fuerzaOscura.eclipse()
-		assert.equals(mascaraOscura.unidadesDeLucha(rolando.nivelDeHechiceria(), rolando.artefactos()), 5)
+		assert.equals(mascaraOscura.unidadesDeLucha(rolando), 5)
 	}
 
 	test "Sin la máscara oscura, la habilidad de rolando es de 9" {
