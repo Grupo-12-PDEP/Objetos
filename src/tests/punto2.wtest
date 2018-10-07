@@ -2,16 +2,17 @@ import rolando.*
 
 describe "Tests del punto 2: Lucha" {
 
+	const rolando 
 	const espadaDelDestino
 	const collarDivino
 	const mascaraOscura
 
 	fixture{
-		espadaDelDestino = new EspadaDelDestino()
-		collarDivino = new CollarDivino()
-		mascaraOscura = new MascaraOscura()
+		espadaDelDestino = new Espada()
+		collarDivino = new CollarDivino(perlas = 5)
+		mascaraOscura = new MascaraOscura(indiceDeOscuridad = 1, minimoDePoder = 4)
+		rolando = new Personaje()
 		rolando.artefactos([espadaDelDestino, collarDivino, mascaraOscura])
-		collarDivino.perlas(5)
 	}
 
 	test "La habilidad de lucha sin artefactos es de 1" {
@@ -34,7 +35,7 @@ describe "Tests del punto 2: Lucha" {
 	}
 
 	test "Despues de un eclipse, el valor de lucha de la máscara es de 5" {
-		fuerzaOscura.eclipse()
+		mundo.eclipse()
 		assert.equals(mascaraOscura.unidadesDeLucha(rolando), 5)
 	}
 

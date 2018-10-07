@@ -1,4 +1,4 @@
-object rolando {
+class Personaje {
 
 	const property artefactos = []
 	var property hechizoPreferido = new HechizoBasico()
@@ -19,7 +19,7 @@ object rolando {
 		self.artefactos().remove(viejoArtefacto)
 	}
 
-	method nivelDeHechiceria() = self.valorBaseDeHechiceria() * self.hechizoPreferido().poder() + fuerzaOscura.valor()
+	method nivelDeHechiceria() = self.valorBaseDeHechiceria() * self.hechizoPreferido().poder() + mundo.fuerzaOscura()
 
 	method teCreesPoderoso() = self.hechizoPreferido().sosPoderoso()
 
@@ -32,21 +32,22 @@ object rolando {
 	method artefactosSin(artefactoExceptuado) = self.artefactos().filter({artefacto => artefacto != artefactoExceptuado})
 	
 	method cualEsTuMejorArtefactoExceptuando(artefactoExceptuado) = self.artefactosSin(artefactoExceptuado).find( { unArtefacto => self.artefactosSin(artefactoExceptuado).all({otroArtefacto => unArtefacto.unidadesDeLucha(self) >= otroArtefacto.unidadesDeLucha(self)}) } )
+
 }
 
+class Logos {
 
-class EspectroMalefico {
-	
-	var property nombre = "Espectro malefico"
+	var property constanteProporcionalDeHechizo = 0
 
-	method poder() = self.nombre().size()
+	var property nombre = ""
+
+	method poder() = self.constanteProporcionalDeHechizo() * self.nombre().size()
 
 	method sosPoderoso() = self.poder() > 15
 
 	method unidadesDeLucha(propietario) = self.poder()
 
 }
-
 
 class HechizoBasico {
 
@@ -58,23 +59,27 @@ class HechizoBasico {
 
 }
 
+object mundo {
 
-object fuerzaOscura {
-
-	var property valor = 5
+	var property fuerzaOscura = 5
 
 	method eclipse() {
-		self.valor(self.valor() * 2)
+		self.fuerzaOscura(self.fuerzaOscura() * 2)
 	}
 
 }
 
-
-class EspadaDelDestino {	
+class Arma {	
 
 	method unidadesDeLucha(propietario) = 3
 
 }
+
+class Espada inherits Arma {}
+
+class Hacha inherits Arma {}
+
+class Lanza inherits Arma {}
 
 class CollarDivino {
 
@@ -86,15 +91,21 @@ class CollarDivino {
 
 class MascaraOscura {
 
-	method unidadesDeLucha(propietario) = 4.max(fuerzaOscura.valor() / 2)
+	var property indiceDeOscuridad = 0
+
+	var property minimoDePoder = 4
+
+	method unidadesDeLucha(propietario) = self.minimoDePoder().max(self.indiceDeOscuridad() * (mundo.fuerzaOscura() / 2))
 
 }
 
 class Armadura {
 	
-	var property refuerzo = ninguno
+	var property refuerzo = nada
 
-	method unidadesDeLucha(propietario) = 2 + self.refuerzo().unidadesDeLucha(propietario)
+	method valorBaseDeRefuerzo() = 2
+
+	method unidadesDeLucha(propietario) = self.valorBaseDeRefuerzo() + self.refuerzo().unidadesDeLucha(propietario)
 
 }
 
@@ -110,7 +121,7 @@ class Bendicion {
 
 }
 
-object ninguno {
+object nada {
 		
 	method unidadesDeLucha(propietario) = 0
 
@@ -118,9 +129,7 @@ object ninguno {
 
 class Espejo {
 
-	method unidadesDeLucha(propietario) = if (self.filtrateDeLosArtefactos(propietario.artefactos()).isEmpty()) {return 0} else { propietario.cualEsTuMejorArtefactoExceptuando(self).unidadesDeLucha(propietario)	 }
-
-	method filtrateDeLosArtefactos(artefactos) = artefactos.filter({artefacto => artefacto != self})
+	method unidadesDeLucha(propietario) = if (propietario.artefactosSin(self).isEmpty()) {return 0} else {propietario.cualEsTuMejorArtefactoExceptuando(self).unidadesDeLucha(propietario)}
 
 }
 
@@ -129,14 +138,14 @@ class LibroDeHechizos {
 	const property hechizos = []
 
 	method agregaHechizo(hechizo) {
-		if (hechizo != self){
-			self.hechizos().add(hechizo)
-		}
+		self.hechizos().add(hechizo)
 	}
 
-	method poder() = self.hechizos().filter({hechizo => hechizo.sosPoderoso()}).sum({hechizo => hechizo.poder()})
+	method poder() = self.hechizosSin(self).filter({hechizo => hechizo.sosPoderoso()}).sum({hechizo => hechizo.poder()})
 
-	method sosPoderoso() = if (self.hechizos().isEmpty()) {return false} else {return self.hechizos().all({hechizo => hechizo.sosPoderoso()})}
+	method sosPoderoso() = if (self.hechizos().isEmpty()) {return false} else {return self.hechizosSin(self).all({hechizo => hechizo.sosPoderoso()})}
+
+	method hechizosSin(hechizo) = self.hechizos().filter({unHechizo => unHechizo != hechizo})
 
 }
 

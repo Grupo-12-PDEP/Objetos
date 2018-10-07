@@ -2,11 +2,12 @@ import rolando.*
 
 describe "Tests del punto 1: Hechicería" {
 
+	const rolando
 	const espectroMalefico
 
 	fixture {
-		espectroMalefico = new EspectroMalefico() 
-		rolando.hechizoPreferido(espectroMalefico)
+		espectroMalefico = new Logos(constanteProporcionalDeHechizo = 1, nombre = "Espectro malefico")
+		rolando = new Personaje(hechizoPreferido = espectroMalefico)
 	}
 
 	test "El nivel de hechicería de rolando es 56" {
@@ -24,7 +25,7 @@ describe "Tests del punto 1: Hechicería" {
 	}
 
 	test "Luego de un eclipse, el nivel de rolando es de 61" {
-		fuerzaOscura.eclipse()
+		mundo.eclipse()
 		assert.equals(rolando.nivelDeHechiceria(), 61)
 	}
 
