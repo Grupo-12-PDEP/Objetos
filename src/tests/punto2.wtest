@@ -1,6 +1,6 @@
 import rolando.*
 
-describe "Tests del punto 2: Lucha" {
+describe "Tests del punto 2: Lucha reformulada" {
 
 	const rolando 
 	const espadaDelDestino
@@ -43,5 +43,18 @@ describe "Tests del punto 2: Lucha" {
 		rolando.removeArtefacto(mascaraOscura)
 		assert.equals(rolando.habilidadDeLucha(), 9)
 	}
+	
+	test "Una mascara oscura con indice de oscuridad = 0 aporta 4 unidades de lucha" {
+		mascaraOscura.indiceDeOscuridad(0)
+		assert.equals(mascaraOscura.unidadesDeLucha(rolando), 4)
+	}
+	
+	test "Una mascara oscura con indice de oscuridad = 0 y valor minimo 2 aporta 2 unidades de lucha" {
+		mascaraOscura.indiceDeOscuridad(0)
+		mascaraOscura.minimoDePoder(2)
+		assert.equals(mascaraOscura.unidadesDeLucha(rolando), 2)
+	}
+	
+	//test 
 
 }

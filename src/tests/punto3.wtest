@@ -7,14 +7,12 @@ describe "Tests del punto 3: Lucha y hechicería avanzada" {
 	const collarDivino
 	const mascaraOscura
 	const armadura
-	const espejo
 
 	fixture {
 		espadaDelDestino = new Espada()
 		collarDivino = new CollarDivino(perlas = 5)
 		mascaraOscura = new MascaraOscura(indiceDeOscuridad = 1, minimoDePoder = 4)
 		armadura = new Armadura()
-		espejo = new Espejo()
 		rolando = new Personaje(hechizoPreferido = new Logos(constanteProporcionalDeHechizo = 1, nombre = "Espectro malefico"))
 		rolando.artefactos([espadaDelDestino, collarDivino, mascaraOscura, armadura, espejo])
 	}
@@ -43,7 +41,7 @@ describe "Tests del punto 3: Lucha y hechicería avanzada" {
 	}
 
 	test "Si la armadura tiene el hechizo básico de refuerzo, sus unidades de lucha son de 12" {
-		armadura.refuerzo(new HechizoBasico())
+		armadura.refuerzo(hechizoBasico)
 		assert.equals(armadura.unidadesDeLucha(rolando), 12)
 	}
 
@@ -59,7 +57,7 @@ describe "Tests del punto 3: Lucha y hechicería avanzada" {
 	}
 
 	test "Si rolando tiene un libro de hechizos con un espectro maléfico y un hechizo básico, su nivel de hechicería es de 56" {
-		const libroDeHechizos = new LibroDeHechizos(hechizos = [new Logos(constanteProporcionalDeHechizo = 1, nombre = "Espectro malefico"), new HechizoBasico()])
+		const libroDeHechizos = new LibroDeHechizos(hechizos = [new Logos(constanteProporcionalDeHechizo = 1, nombre = "Espectro malefico"), hechizoBasico])
 		rolando.hechizoPreferido(libroDeHechizos)
 		assert.equals(rolando.nivelDeHechiceria(), 56)
 	}

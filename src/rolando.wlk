@@ -1,7 +1,7 @@
 class Personaje {
 
 	const property artefactos = []
-	var property hechizoPreferido = new HechizoBasico()
+	var property hechizoPreferido = hechizoBasico
 	var property valorBaseDeLucha = 1
 	
 	method valorBaseDeHechiceria() = 3
@@ -49,7 +49,7 @@ class Logos {
 
 }
 
-class HechizoBasico {
+object hechizoBasico {
 
 	var property poder = 10
 
@@ -127,7 +127,7 @@ object nada {
 
 }
 
-class Espejo {
+object espejo {
 
 	method unidadesDeLucha(propietario) = if (propietario.artefactosSin(self).isEmpty()) {return 0} else {propietario.cualEsTuMejorArtefactoExceptuando(self).unidadesDeLucha(propietario)}
 
