@@ -140,23 +140,25 @@ class MascaraOscura {
 }
 
 class Armadura {
-	
+
+	var property valorBaseDeRefuerzo
+
 	var property refuerzo = nada
-	var property valorBaseDeRefuerzo = 2
 
 	method unidadesDeLucha(propietario) = self.valorBaseDeRefuerzo() + self.refuerzo().unidadesDeLucha(propietario)
-	
+
 	method precio() = self.refuerzo().precio(self)
-	
+
 }
 
 class CotaDeMalla {
-	
+
 	const property unidades = 1
+
 	method unidadesDeLucha(propietario) = self.unidades()
-	
+
 	method precio(armadura) = self.unidadesDeLucha(0) / 2
-		
+
 }
 
 object bendicion {
@@ -196,13 +198,11 @@ class LibroDeHechizos {
 	method sosPoderoso() = if (self.hechizos().isEmpty()) {return false} else {return self.hechizosSin(self).all({hechizo => hechizo.sosPoderoso()})}
 
 	method hechizosSin(hechizo) = self.hechizos().filter({unHechizo => unHechizo != hechizo})
-	
+
 	method precio() = self.hechizos().size() * 10 + self.hechizos().filter({unHechizo => unHechizo.sosPoderoso()}).sum({unHechizo => unHechizo.poder()})
-	
+
 	method precio(armadura) = armadura.valorBaseDeRefuerzo() + self.precio()
-	
+
 }
 
-
-
-//fin
+// Fin
