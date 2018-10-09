@@ -1,0 +1,81 @@
+import rolando.*
+
+describe "Tests del punto 4: Comercio" {
+
+	const xenia
+	const thor
+	const loki
+	const alacachulaCachicomula
+
+	fixture{
+		alacachulaCachicomula = new Logos(constanteProporcionalDeHechizo = 1, nombre = "alacachula cachicomula")
+		xenia = new Personaje(hechizoPreferido = alacachulaCachicomula)
+		thor = new Personaje(hechizoPreferido = hechizoBasico)
+		loki = new Personaje(hechizoPreferido = hechizoBasico, oro = 5)
+	}
+	
+	test "el precio de lista de alacachula cachicomula es 22" {
+		assert.equals(alacachulaCachicomula.precio(), 22)
+	}
+	
+	test "xenia canjea el hechizo por un hechizo basico y le quedan 100 monedas" {
+		xenia.canjea(hechizoBasico)
+		assert.equals(xenia.oro(), 100)
+	}
+	
+	test "thor canjea el hechizo alacachula cachicomula y le queda 83 de oro" {
+		thor.canjea(alacachulaCachicomula)
+		assert.equals(thor.oro(), 83)
+	}
+	
+	test "thor canjea 2 veces el hechizo basico y le quedan 90 de oro" {
+		thor.canjea(hechizoBasico)
+		thor.canjea(hechizoBasico)
+		assert.equals(thor.oro(), 90)
+	}
+	
+	test "loki quiere canjear el hechizo alacachula cachicomula y no puede" {
+		assert.notThat(loki.canjea(alacachulaCachicomula))
+		
+		loki.canjea(alacachulaCachicomula)
+		assert.equals(loki.hechizoPreferido(), hechizoBasico)
+	}
+	
+	test "xenia compra una espada, un collar divino de 5 perlas, una armadura sin refuerzo, y otra armadura con malla de cota con valor de lucha 5; le quedan 70,5 de oro" {
+		xenia.compra(new Espada())
+		xenia.compra(new CollarDivino(perlas = 5))
+		xenia.compra(new Armadura())
+		xenia.compra(new Armadura(refuerzo = new CotaDeMalla(unidades = 5)))
+		assert.equals(xenia.oro(), 70.5)
+	}
+	
+	test "xenia compra una espada, un collar divino de 5 perlas, una armadura sin refuerzo, y otra armadura con malla de cota con valor de lucha 5; tiene 4 artefactos" {
+		xenia.compra(new Espada())
+		xenia.compra(new CollarDivino(perlas = 5))
+		xenia.compra(new Armadura())
+		xenia.compra(new Armadura(refuerzo = new CotaDeMalla(unidades = 5)))
+		assert.equals(xenia.artefactos().size(), 4)
+	}
+	
+	test "thor compra una armadura con bendicion y otra armadura creforzada con hechizo alacachula; le queda 74 de oro" {
+		thor.compra(new Armadura(refuerzo = bendicion))
+		thor.compra(new Armadura(refuerzo = alacachulaCachicomula))
+		assert.equals(thor.oro(), 74)
+	}
+	
+	test "loki quiere comprar el espejo pero no puede" {
+		assert.notThat(loki.compra(espejo))
+		
+		loki.compra(espejo)
+		assert.equals(loki.artefactos(), [])
+	}
+	
+	test "xenia canjea un libro de hechizos que contiene alacachula y el hechizo basico; le quedan 69 monedas" {
+		xenia.canjea(new LibroDeHechizos(hechizos = [alacachulaCachicomula, hechizoBasico]))
+		assert.equals(xenia.oro(), 69)
+	}
+	
+	
+	
+	
+}
