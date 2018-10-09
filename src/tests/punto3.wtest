@@ -12,7 +12,7 @@ describe "Tests del punto 3: Lucha y hechicería avanzada" {
 		espadaDelDestino = new Espada()
 		collarDivino = new CollarDivino(perlas = 5)
 		mascaraOscura = new MascaraOscura(indiceDeOscuridad = 1, minimoDePoder = 4)
-		armadura = new Armadura(valorBaseDeRefuerzo = 2)
+		armadura = new Armadura()
 		rolando = new Personaje(hechizoPreferido = new Logos(constanteProporcionalDeHechizo = 1, nombre = "Espectro malefico"))
 		rolando.artefactos([espadaDelDestino, collarDivino, mascaraOscura, armadura, espejo])
 	}
@@ -64,12 +64,6 @@ describe "Tests del punto 3: Lucha y hechicería avanzada" {
 	
 	test "Si a rolando le agregamos una armadura con valor base de 5 y refuerzo de cota de malla de valor 6, su habilidad para la lucha sera de 37" {
 		rolando.agregaArtefacto(new Armadura(valorBaseDeRefuerzo = 5, refuerzo = new CotaDeMalla(unidades = 6)))
-		assert.equals(rolando.habilidadDeLucha(), 37)
-	}
-
-	test "Si rolando tiene una armadura extra con valor base de refuerzo 5 y un refuerzo de cota de malla con 6 de valor de lucha, su habilidad de lucha es de 37" {
-		const armaduraExtra = new Armadura(valorBaseDeRefuerzo = 5, refuerzo = new CotaDeMalla(valorDeRefuerzo = 6))
-		rolando.agregaArtefacto(armaduraExtra)
 		assert.equals(rolando.habilidadDeLucha(), 37)
 	}
 

@@ -141,7 +141,7 @@ class MascaraOscura {
 
 class Armadura {
 
-	var property valorBaseDeRefuerzo
+	var property valorBaseDeRefuerzo = 2
 
 	var property refuerzo = nada
 
