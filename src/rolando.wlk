@@ -41,8 +41,8 @@ class Personaje {
 	method cumpliUnObjetivo() { self.sumateOro(10) }
 	
 	method canjea(hechizo) {
-		if (hechizo.precio() - self.hechizoPreferido().precio() <= self.oro()){
-			self.restateOro( 0.max(hechizo.precio() - self.hechizoPreferido().precio()) )
+		if (hechizo.precio() - self.hechizoPreferido().precio() / 2 <= self.oro()){
+			self.restateOro( 0.max(hechizo.precio() - self.hechizoPreferido().precio() / 2) )
 			self.hechizoPreferido(hechizo)
 			return true
 		} else {
@@ -205,4 +205,6 @@ class LibroDeHechizos {
 
 }
 
-// Fin
+		
+
+//fin
