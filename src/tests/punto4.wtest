@@ -1,4 +1,7 @@
 import rolando.*
+import hechiceria.*
+import artefactos.*
+
 
 describe "Tests del punto 4: Comercio" {
 

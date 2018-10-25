@@ -1,4 +1,7 @@
 import rolando.*
+import hechiceria.*
+import artefactos.*
+
 
 describe "Tests del punto 1: Hechicería Recargada" {
 
@@ -41,5 +44,5 @@ describe "Tests del punto 1: Hechicería Recargada" {
 	test "El hechizo básico no es poderoso" {
 		assert.notThat(hechizoBasico.sosPoderoso())
 	}
-
+	
 }
