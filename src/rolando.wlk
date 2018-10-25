@@ -41,27 +41,28 @@ class Personaje {
 	method cumpliUnObjetivo() { self.sumateOro(10) }
 	
 	method canjea(hechizo) {
-		if (hechizo.precio() - self.hechizoPreferido().precio() / 2 <= self.oro()){
-			self.restateOro( 0.max(hechizo.precio() - self.hechizoPreferido().precio() / 2) )
-			self.hechizoPreferido(hechizo)
-			return true
-		} else {
-			return false
+		if (hechizo.precio() - self.hechizoPreferido().precio() / 2 > self.oro()){
+			throw new ExcepcionPorDineroInsuficiente("no tenes fondos suficiente para realizar el canje")
 		}
+		
+		self.restateOro( 0.max(hechizo.precio() - self.hechizoPreferido().precio() / 2) )
+		self.hechizoPreferido(hechizo)
+		
 	}
 	
 	method compra(artefacto) {
-		if (artefacto.precio() <= self.oro()){
-			self.restateOro(artefacto.precio())
-			self.agregaArtefacto(artefacto)
-			return true
-		} else {
-			return false
-		}
+		if (artefacto.precio() > self.oro()){
+			throw new ExcepcionPorDineroInsuficiente("no tenes fondos suficiente para realizar la compra")
+		} 
+		
+		self.restateOro(artefacto.precio())
+		self.agregaArtefacto(artefacto)
 	}
 	
 	
 }
+
+class ExcepcionPorDineroInsuficiente inherits Exception{}
 
 class Logos {
 
