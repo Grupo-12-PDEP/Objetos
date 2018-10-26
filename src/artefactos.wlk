@@ -15,6 +15,8 @@ class Artefacto{
 	
 	method unidadesDeLucha(propietario)
 	
+	method precio()
+	
 }
 
 
@@ -22,7 +24,7 @@ class Arma inherits Artefacto {
 
 	override method unidadesDeLucha(propietario) = 3
 	
-	method precio() = 5 * self.unidadesDeLucha(0)
+	override method precio() = 5 * self.unidadesDeLucha(0)
 	
 }
 
@@ -39,7 +41,7 @@ class CollarDivino inherits Artefacto {
 
 	override method unidadesDeLucha(propietario) = self.perlas()
 	
-	method precio() = 2 * self.perlas()
+	override method precio() = 2 * self.perlas()
 	
 	override method pesas() = super() + 0.5 * self.perlas()
 
@@ -54,6 +56,8 @@ class MascaraOscura inherits Artefacto {
 
 	override method unidadesDeLucha(propietario) = self.minimoDePoder().max(self.indiceDeOscuridad() * (mundo.fuerzaOscura() / 2))
 	
+	override method precio() = 10 * self.indiceDeOscuridad()
+	
 	override method pesas() = super() + (self.unidadesDeLucha(0) - 3).max(0)
 	
 }
@@ -67,7 +71,7 @@ class Armadura inherits Artefacto {
 
 	override method unidadesDeLucha(propietario) = self.valorBaseDeRefuerzo() + self.refuerzo().unidadesDeLucha(propietario)
 
-	method precio() = self.refuerzo().precio(self)
+	override method precio() = self.refuerzo().precio(self)
 	
 	override method pesas() = super() + refuerzo.pesas()
 

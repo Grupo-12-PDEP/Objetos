@@ -55,5 +55,7 @@ class LibroDeHechizos inherits Hechizo{
 	override method precio() = self.hechizos().size() * 10 + self.hechizos().filter({unHechizo => unHechizo.sosPoderoso()}).sum({unHechizo => unHechizo.poder()})
 
 	override method precio(armadura) = armadura.valorBaseDeRefuerzo() + self.precio()
+	
+	override method pesas() = 0
 
 }

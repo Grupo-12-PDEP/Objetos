@@ -54,19 +54,32 @@ class Personaje {
 		
 	}
 	
-	method compra(artefacto) {
+	method compra(artefacto, comerciante) {
 		if (artefacto.precio() > self.oro()){
 			throw new ExcepcionPorDineroInsuficiente("no tenes fondos suficiente para realizar la compra")
 		} 
+		
+		if (self.cargas() + artefacto.pesas() > self.pesoMaximo()){
+			throw new ExcepcionPorPesoMaximoAlcanzado("no se puede realizar la compra porque se excederia el peso maximo permitido para el personaje")
+		}
 		
 		self.restateOro(artefacto.precio())
 		self.agregaArtefacto(artefacto)
 	}
 	
 	
+	method cargas() = self.artefactos().sum({artefacto => artefacto.pesas()})
+	
+	method desprendete(unArtefacto){
+		self.artefactos().remove(unArtefacto)
+	}
+	
+	
 }
 
 class ExcepcionPorDineroInsuficiente inherits Exception{}
+
+class ExcepcionPorPesoMaximoAlcanzado inherits Exception{}
 
 
 object mundo {

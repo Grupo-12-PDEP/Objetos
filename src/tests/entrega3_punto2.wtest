@@ -28,7 +28,7 @@ describe "Tests del punto 2: Pesos de los artefactos"{
 		armaduraConHechizoPar = new Armadura(refuerzo = new HechizoComercial(nombre = "armadura hechizo par"), pesoInicial = 12)
 		armaduraConHechizoImpar = new Armadura(refuerzo = new Logos(nombre = "espectro malefico"), pesoInicial = 12)
 		armaduraSinRefuerzo = new Armadura(refuerzo = nada, pesoInicial = 12)
-		//mockHnos = new Comerciante()
+		//mockHnos = new Comerciante(comision = 0)
 		merlin = new Personaje(oro = 100, pesoMaximo = 10)
 		ursula = new Personaje(oro = 100, pesoMaximo = 200, artefactos = [mascaraOscura,armaduraConCotaDeMalla] )
 		
@@ -86,8 +86,8 @@ describe "Tests del punto 2: Pesos de los artefactos"{
 	}
 	
 	test "merlin quiere comprar la harmadura con hechizo par pero no puede"{
-		const excepcionEsperada = new PesoMaximoAlcanzado("no se puede realizar la compra porque se excederia el peso maximo permitido para el personaje")
-		assert.throwsExceptionLike({merlin.compra(armaduraConHechizoPar)}, excepcionEsperada)
+		const excepcionEsperada = new ExcepcionPorPesoMaximoAlcanzado("no se puede realizar la compra porque se excederia el peso maximo permitido para el personaje")
+		assert.throwsExceptionLike(excepcionEsperada, {merlin.compra(armaduraConHechizoPar, mockHnos)})
 	}
 	
 	test "ursula carga inicialmente con 14 kilos, luego se despredende de la armadura con cota de malla y carga con 3 kilos"{
