@@ -19,7 +19,7 @@ describe "Tests del punto 2: Lucha reformulada" {
 	}
 
 	test "La habilidad de lucha sin artefactos es de 1" {
-		rolando.artefactos().clear()
+		rolando.abandonaTodosTusArtefactos()
 		assert.equals(rolando.habilidadDeLucha(), 1)
 	}
 

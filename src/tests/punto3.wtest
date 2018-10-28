@@ -24,7 +24,7 @@ describe "Tests del punto 3: Lucha y hechicería avanzada" {
 		assert.that(rolando.estasCargado())
 	}
 
-	test "Si le sacamos la armadura, no está cargado" {
+	test "Si le sacamos un artefacto, no está cargado" {
 		rolando.removeArtefacto(armadura)
 		assert.notThat(rolando.estasCargado())		
 	}
@@ -54,7 +54,7 @@ describe "Tests del punto 3: Lucha y hechicería avanzada" {
 	}
 
 	test "Si rolando tiene solo un espejo en su inventario, tiene un valor de lucha de 1" {
-		rolando.artefactos().clear()
+		rolando.abandonaTodosTusArtefactos()
 		rolando.agregaArtefacto(espejo)
 		assert.equals(rolando.habilidadDeLucha(), 1)
 	}
