@@ -7,7 +7,7 @@ class Personaje {
 	var property hechizoPreferido = hechizoBasico
 	var property valorBaseDeLucha = 1
 	var property oro = 100
-	const property pesoMaximo = 10
+	const property pesoMaximo = 200
 	
 	method valorBaseDeHechiceria() = 3
 
@@ -59,17 +59,17 @@ class Personaje {
 	method puedeCanjear(hechizo) = hechizo.precio() - self.hechizoPreferido().precio() / 2 <= self.oro()
 	
 	method compra(artefacto, comerciante) {
-		if (self.puedeComprar(artefacto, comerciante).negate()) {
+		if (self.teAncanzaElOroParaComprar(artefacto, comerciante).negate()) {
 			throw new ExcepcionPorPocoOro("No te alcanza el oro para comprar este artefacto")
 		}
 		if (self.cargas() + artefacto.pesas() > self.pesoMaximo()) {
 			throw new ExcepcionPorPesoMaximoAlcanzado("No se puede realizar la compra porque se excederia el peso maximo permitido para el personaje")
 		}
-		self.restateOro(artefacto.precio() + comerciante.impuesto(artefacto))
-		self.agregaArtefacto(artefacto)
+			self.restateOro(artefacto.precio() + comerciante.impuesto(artefacto))
+			self.agregaArtefacto(artefacto)
 	}
 	
-	method puedeComprar(artefacto, comerciante) = artefacto.precio() + comerciante.impuesto(artefacto) <= self.oro()
+	method teAncanzaElOroParaComprar(artefacto, comerciante) = artefacto.precio() + comerciante.impuesto(artefacto) <= self.oro()
 
 	method cargas() = self.artefactos().sum({artefacto => artefacto.pesas()})
 	
@@ -119,7 +119,7 @@ class Registrado {
 
 class ConImpuestoALasGanancias {
 	
-	method criterioDeComercio(artefacto) = 0.35 * (artefacto.precio() - mundo.minimoNoImponible())
+	method criterioDeComercio(artefacto) = 0.35 * (artefacto.precio() - mundo.minimoNoImponible()).max(0)
 	
 	method recategorizate() = self
 	
