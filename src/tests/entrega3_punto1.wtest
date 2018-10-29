@@ -2,7 +2,6 @@ import rolando.*
 import hechiceria.*
 import artefactos.*
 
-
 describe "Tests del punto 1: Hechicería" {
 
 	const espectroMalefico

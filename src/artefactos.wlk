@@ -5,6 +5,7 @@ import hechiceria.*
 class Artefacto{
 	
 	const property fechaDeCompra = new Date()
+	
 	const property pesoInicial = 0
 	
 	method pesas() = self.pesoInicial() - self.factorDeCorrecion()
@@ -24,7 +25,7 @@ class Arma inherits Artefacto {
 
 	override method unidadesDeLucha(propietario) = 3
 	
-	override method precio() = 5 * self.unidadesDeLucha(0)
+	override method precio() = 5 * self.pesas()
 	
 }
 

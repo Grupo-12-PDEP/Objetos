@@ -1,6 +1,28 @@
+import rolando.*
+import hechiceria.*
+import artefactos.*
 
-test "testX" {
-
-	assert.that(true)
+describe "Tests del punto 3: Non-playable characters" {
+	
+	const navi
+	const ashleyGraham
+	
+	fixture {
+		navi = new NPC(nivelDeDificultad = facil)
+		ashleyGraham = new NPC(valorBaseDeLucha = 5, artefactos = [new MascaraOscura(indiceDeOscuridad = 0)], nivelDeDificultad = moderado)
+	}
+	
+	test "El valor de la habilidad de lucha de navi es 1" {
+		assert.equals(navi.habilidadDeLucha(), 1)
+	}
+	
+	test "El valor de la habilidad de lucha de Ashley Graham es 18" {
+		assert.equals(ashleyGraham.habilidadDeLucha(), 18)
+	}
+	
+	test "Si la dificultad Ashley Graham es promovida a dificil, su habilidad de lucha sera de 36" {
+		ashleyGraham.nivelDeDificultad(dificil)
+		assert.equals(ashleyGraham.habilidadDeLucha(), 36)
+	}
 
 }

@@ -2,7 +2,7 @@ import rolando.*
 import artefactos.*
 
 
-class Hechizo{
+class Hechizo {
 	
 	method poder() = 10
 	
@@ -14,7 +14,7 @@ class Hechizo{
 	
 	method precio(armadura) = armadura.valorBaseDeRefuerzo() + self.precio()
 	
-	method pesas() = if (self.poder().even()){2} else {1}
+	method pesas() = if (self.poder().even()) {2} else {1}
 	
 }
 
@@ -28,7 +28,7 @@ class Logos inherits Hechizo {
 
 }
 
-class HechizoComercial inherits Logos{
+class HechizoComercial inherits Logos {
 	
 	var property porcentaje = 20
 	
@@ -38,7 +38,7 @@ class HechizoComercial inherits Logos{
 object hechizoBasico inherits Hechizo {}
 
 
-class LibroDeHechizos inherits Hechizo{
+class LibroDeHechizos inherits Hechizo {
 
 	const property hechizos = []
 

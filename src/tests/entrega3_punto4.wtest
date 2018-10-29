@@ -1,6 +1,60 @@
+import rolando.*
+import hechiceria.*
+import artefactos.*
 
-test "testX" {
+describe "Tests del punto 4: Comercio avanzado" {
 
-	assert.that(true)
+	const ursula
+	const pastoriza
+	const prieto
+	const fermepin
+	
+	fixture {
+		ursula = new Personaje(oro = 100)
+		pastoriza = new Comerciante(tipoDeComercio = new Independiente(impuesto = 0.09))
+		prieto = new Comerciante(tipoDeComercio = new Registrado())
+		fermepin = new Comerciante(tipoDeComercio = new ConImpuestoALasGanancias())
+		mundo.minimoNoImponible(5)
+	}
+	
+	test "Si Ursula le compra la mascara oscura a Pastoriza, queda con 89.1 monedas" {
+		ursula.compra(new MascaraOscura(), pastoriza)
+		assert.equals(ursula.oro(), 89.1)
+	}
+	
+	test "Si Ursula le compra la mascara oscura a Prieto, queda con 87.9 monedas" {
+		ursula.compra(new MascaraOscura(), prieto)
+		assert.equals(ursula.oro(), 87.9)
+	}
+	
+	test "Si Ursula le compra la mascara oscura a Fermepin, queda con 88.25 monedas" {
+		ursula.compra(new MascaraOscura(), fermepin)
+		assert.equals(ursula.oro(), 88.25)
+	}
+	
+	test "Si Ursula le compra la mascara oscura a Pastoriza luego de recategorizarse, queda con 88.2 monedas" {
+		pastoriza.recategorizate()
+		ursula.compra(new MascaraOscura(), pastoriza)
+		assert.equals(ursula.oro(), 88.2)
+	}
+	
+	test "Si Ursula le compra la mascara oscura a Pastoriza luego de recategorizarse 2 veces, queda con 87.9 monedas" {
+		pastoriza.recategorizate()
+		pastoriza.recategorizate()
+		ursula.compra(new MascaraOscura(), pastoriza)
+		assert.equals(ursula.oro(), 87.9)
+	}
+	
+	test "Si Ursula le compra la mascara oscura a Prieto luego de recategorizarse, queda con 88.25 monedas" {
+		prieto.recategorizate()
+		ursula.compra(new MascaraOscura(), prieto)
+		assert.equals(ursula.oro(), 88.25)
+	}
+	
+	test "Si Ursula le compra la mascara oscura a Fermepin luego de recategorizarse, queda con 88.25 monedas" {
+		fermepin.recategorizate()
+		ursula.compra(new MascaraOscura(), fermepin)
+		assert.equals(ursula.oro(), 88.25)
+	}
 
 }

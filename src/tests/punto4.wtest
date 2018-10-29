@@ -9,12 +9,14 @@ describe "Tests del punto 4: Comercio" {
 	const thor
 	const loki
 	const alacachulaCachicomula
+	const mockHnos
 
 	fixture{
 		alacachulaCachicomula = new Logos(constanteProporcionalDeHechizo = 1, nombre = "alacachula cachicomula")
 		xenia = new Personaje(hechizoPreferido = alacachulaCachicomula)
 		thor = new Personaje(hechizoPreferido = hechizoBasico)
 		loki = new Personaje(hechizoPreferido = hechizoBasico, oro = 5)
+		mockHnos = new Comerciante(tipoDeComercio = new Independiente(impuesto = 0))
 	}
 	
 	test "el precio de lista de alacachula cachicomula es 22" {
@@ -37,43 +39,30 @@ describe "Tests del punto 4: Comercio" {
 		assert.equals(thor.oro(), 90)
 	}
 	
-	test "loki quiere canjear el hechizo alacachula cachicomula y no puede" {
-		const excepcionEsperada = new ExcepcionPorDineroInsuficiente("no tenes fondos suficiente para realizar el canje")
-		const bloqueQueDebeExplotar = {loki.canjea(alacachulaCachicomula)}
-		assert.throwsExceptionLike(excepcionEsperada, bloqueQueDebeExplotar)
-		assert.equals(loki.hechizoPreferido(), hechizoBasico)
-	}
-	
-	test "xenia compra una espada, un collar divino de 5 perlas, una armadura sin refuerzo, y otra armadura con malla de cota con valor de lucha 5; le quedan 70,5 de oro y 4 artefactos" {
 	test "loki quiere canjear el hechizo alacachula cachicomula pero no le alcanza el oro" {
 		const excepcionEsperada = new ExcepcionPorPocoOro("No te alcanza el oro para comprar este hechizo")
 		const bloqueAExplotar = {loki.canjea(alacachulaCachicomula)}
 		assert.throwsExceptionLike(excepcionEsperada, bloqueAExplotar)
 	}
 	
-	test "xenia compra una espada, un collar divino de 5 perlas, una armadura sin refuerzo, y otra armadura con cota de malla con valor de lucha 5; le quedan 70,5 de oro, y tiene 4 artefactos" {
-		xenia.compra(new Espada())
-		xenia.compra(new CollarDivino(perlas = 5))
-		xenia.compra(new Armadura())
-		xenia.compra(new Armadura(refuerzo = new CotaDeMalla(unidades = 5)))
-		assert.equals(xenia.oro(), 70.5)
+	test "xenia compra una espada, un collar divino de 5 perlas, una armadura sin refuerzo, y otra armadura con cota de malla con valor de lucha 5; le quedan 85,5 de oro, y tiene 4 artefactos" {
+		xenia.compra(new Espada(), mockHnos)
+		xenia.compra(new CollarDivino(perlas = 5), mockHnos)
+		xenia.compra(new Armadura(), mockHnos)
+		xenia.compra(new Armadura(refuerzo = new CotaDeMalla(unidades = 5)), mockHnos)
+		assert.equals(xenia.oro(), 85.5)
 		assert.equals(xenia.artefactos().size(), 4)
 	}
 	
 	test "thor compra una armadura con bendicion y otra armadura creforzada con hechizo alacachula; le queda 74 de oro" {
-		thor.compra(new Armadura(refuerzo = bendicion))
-		thor.compra(new Armadura(refuerzo = alacachulaCachicomula))
+		thor.compra(new Armadura(refuerzo = bendicion), mockHnos)
+		thor.compra(new Armadura(refuerzo = alacachulaCachicomula), mockHnos)
 		assert.equals(thor.oro(), 74)
 	}
 	
-	test "loki quiere comprar el espejo pero no puede" {
-		const excepcionEsperada = new ExcepcionPorDineroInsuficiente("no tenes fondos suficiente para realizar la compra")
-		const bloqueQueDebeExplotar = {loki.compra(espejo)}
-		assert.throwsExceptionLike(excepcionEsperada, bloqueQueDebeExplotar)
-		assert.equals(loki.artefactos(), [])
 	test "loki quiere comprar el espejo pero no le alcanza el oro" {
 		const excepcionEsperada = new ExcepcionPorPocoOro("No te alcanza el oro para comprar este artefacto")
-		const bloqueAExplotar = {loki.compra(espejo)}
+		const bloqueAExplotar = {loki.compra(espejo, mockHnos)}
 		assert.throwsExceptionLike(excepcionEsperada, bloqueAExplotar)
 	}
 	
@@ -81,8 +70,5 @@ describe "Tests del punto 4: Comercio" {
 		xenia.canjea(new LibroDeHechizos(hechizos = [alacachulaCachicomula, hechizoBasico]))
 		assert.equals(xenia.oro(), 69)
 	}
-	
-	
-	
-	
+
 }

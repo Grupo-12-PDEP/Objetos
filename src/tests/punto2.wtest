@@ -57,7 +57,5 @@ describe "Tests del punto 2: Lucha reformulada" {
 		mascaraOscura.minimoDePoder(2)
 		assert.equals(mascaraOscura.unidadesDeLucha(rolando), 2)
 	}
-	
-	//test 
 
 }
