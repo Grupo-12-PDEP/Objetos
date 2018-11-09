@@ -32,11 +32,10 @@ class HechizoComercial inherits Logos {
 	
 	var property porcentaje = 20
 	
-	override method poder() =  self.porcentaje()/100 * self.nombre().size() * self.constanteProporcionalDeHechizo()
+	override method poder() =  (self.porcentaje() / 100) * self.nombre().size() * self.constanteProporcionalDeHechizo()
 }
 
 object hechizoBasico inherits Hechizo {}
-
 
 class LibroDeHechizos inherits Hechizo {
 

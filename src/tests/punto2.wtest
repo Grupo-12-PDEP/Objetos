@@ -11,7 +11,7 @@ describe "Tests del punto 2: Lucha reformulada" {
 	const mascaraOscura
 
 	fixture{
-		espadaDelDestino = new Espada()
+		espadaDelDestino = new Arma()
 		collarDivino = new CollarDivino(perlas = 5)
 		mascaraOscura = new MascaraOscura(indiceDeOscuridad = 1, minimoDePoder = 4)
 		rolando = new Personaje()

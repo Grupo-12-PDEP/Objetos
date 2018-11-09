@@ -18,9 +18,9 @@ describe "Tests del punto 2: Pesos de los artefactos"{
 	const ursula
 	
 	fixture{
-		espadaVieja = new Espada(pesoInicial = 7, fechaDeCompra = new Date(7,5,2006))
-		espadaNueva = new Espada(pesoInicial = 4, fechaDeCompra = new Date())
-		espadaComun = new Espada(pesoInicial = 5, fechaDeCompra = new Date().minusDays(50))
+		espadaVieja = new Arma(pesoInicial = 7, fechaDeCompra = new Date(7,5,2006))
+		espadaNueva = new Arma(pesoInicial = 4, fechaDeCompra = new Date())
+		espadaComun = new Arma(pesoInicial = 5, fechaDeCompra = new Date().minusDays(50))
 		mascaraOscura = new MascaraOscura(pesoInicial = 3, minimoDePoder = 1)
 		mascaraClara = new MascaraOscura(indiceDeOscuridad = 0, pesoInicial = 2, minimoDePoder = 0)
 		armaduraConCotaDeMalla = new Armadura(refuerzo = new CotaDeMalla(), pesoInicial = 10)

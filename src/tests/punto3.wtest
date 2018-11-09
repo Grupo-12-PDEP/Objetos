@@ -12,7 +12,7 @@ describe "Tests del punto 3: Lucha y hechicería avanzada" {
 	const armadura
 
 	fixture {
-		espadaDelDestino = new Espada()
+		espadaDelDestino = new Arma()
 		collarDivino = new CollarDivino(perlas = 5)
 		mascaraOscura = new MascaraOscura(indiceDeOscuridad = 1, minimoDePoder = 4)
 		armadura = new Armadura()

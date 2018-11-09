@@ -2,9 +2,9 @@ import rolando.*
 import hechiceria.*
 
 
-class Artefacto{
+class Artefacto {
 	
-	const property fechaDeCompra = new Date()
+	const property fechaDeCompra = mundo.fechaDeHoy()
 	
 	const property pesoInicial = 0
 	
@@ -12,7 +12,7 @@ class Artefacto{
 	
 	method factorDeCorrecion() = (self.diasDesdeQueTeCompraron() / 1000).min(1)
 	
-	method diasDesdeQueTeCompraron() = new Date() - self.fechaDeCompra()
+	method diasDesdeQueTeCompraron() = mundo.fechaDeHoy() - self.fechaDeCompra()
 	
 	method unidadesDeLucha(propietario)
 	
@@ -28,13 +28,6 @@ class Arma inherits Artefacto {
 	override method precio() = 5 * self.pesas()
 	
 }
-
-class Espada inherits Arma {}
-
-class Hacha inherits Arma {}
-
-class Lanza inherits Arma {}
-
 
 class CollarDivino inherits Artefacto {
 
@@ -59,7 +52,7 @@ class MascaraOscura inherits Artefacto {
 	
 	override method precio() = 10 * self.indiceDeOscuridad()
 	
-	override method pesas() = super() + (self.unidadesDeLucha(0) - 3).max(0)
+	override method pesas() = super() + (self.unidadesDeLucha(nada) - 3).max(0)
 	
 }
 

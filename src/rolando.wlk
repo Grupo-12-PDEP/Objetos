@@ -134,7 +134,9 @@ object mundo {
 	var property minimoNoImponible
 
 	var property fuerzaOscura = 5
-
+	
+	method fechaDeHoy() = new Date()
+	
 	method eclipse() {
 		self.fuerzaOscura(self.fuerzaOscura() * 2)
 	}

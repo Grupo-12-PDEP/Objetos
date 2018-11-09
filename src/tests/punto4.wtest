@@ -46,7 +46,7 @@ describe "Tests del punto 4: Comercio" {
 	}
 	
 	test "xenia compra una espada, un collar divino de 5 perlas, una armadura sin refuerzo, y otra armadura con cota de malla con valor de lucha 5; le quedan 85,5 de oro, y tiene 4 artefactos" {
-		xenia.compra(new Espada(), mockHnos)
+		xenia.compra(new Arma(), mockHnos)
 		xenia.compra(new CollarDivino(perlas = 5), mockHnos)
 		xenia.compra(new Armadura(), mockHnos)
 		xenia.compra(new Armadura(refuerzo = new CotaDeMalla(unidades = 5)), mockHnos)
