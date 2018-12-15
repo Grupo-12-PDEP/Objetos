@@ -1,5 +1,5 @@
-import hechiceria.*
-import artefactos.*
+import Hechiceria.*
+import Artefactos.*
 
 class Personaje {
 

@@ -1,5 +1,5 @@
-import rolando.*
-import hechiceria.*
+import Rolando.*
+import Hechiceria.*
 
 
 class Artefacto {

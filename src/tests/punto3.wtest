@@ -1,6 +1,6 @@
-import rolando.*
-import hechiceria.*
-import artefactos.*
+import Rolando.*
+import Hechiceria.*
+import Artefactos.*
 
 
 describe "Tests del punto 3: Lucha y hechicería avanzada" {

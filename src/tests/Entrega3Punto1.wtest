@@ -1,0 +1,30 @@
+import Rolando.*
+import Hechiceria.*
+import Artefactos.*
+
+describe "Tests del punto 1: Hechicería" {
+
+	const espectroMalefico
+	const hechizoComercial
+	const furibunda
+
+	fixture {
+		hechizoComercial = new HechizoComercial(nombre = "el hechizo comercial", constanteProporcionalDeHechizo = 2, porcentaje = 20)
+		espectroMalefico = new Logos(constanteProporcionalDeHechizo = 3, nombre = "Espectro malefico")
+		furibunda = new Personaje(hechizoPreferido = hechizoComercial)
+	}
+
+	
+	test "El nivel de hechiceria de furibunda deberia ser 29"{
+		assert.equals(furibunda.nivelDeHechiceria(), 29)
+	}
+	
+	test "el hechizo comercial no es poderoso"{
+		assert.notThat(hechizoComercial.sosPoderoso())
+	}
+	
+	test "El espectro maléfico es poderoso" {
+		assert.that(espectroMalefico.sosPoderoso())
+	}
+	
+}
